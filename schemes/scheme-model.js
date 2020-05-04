@@ -35,6 +35,17 @@ class Scheme {
       });
   }
 
+  addStep(step, scheme_id) {
+    const $this = this;
+    const payload = {
+      scheme_id,
+      ...step,
+    };
+    return db("steps")
+      .insert(payload)
+      .then((ids) => db("steps").where("id", ids[0]).first());
+  }
+
   update(changes, id) {
     const $this = this;
     return this.query()
